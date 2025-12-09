@@ -22,20 +22,22 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project with Maven...'
-                sh 'mvn clean package -DskipTests'
+                // Use 'bat' for Windows
+                bat 'mvn clean package -DskipTests'
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Running unit tests...'
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
 
         stage('Test Report') {
             steps {
                 echo 'Publishing test results...'
+                // Make sure surefire reports exist
                 junit '**/target/surefire-reports/*.xml'
             }
         }
